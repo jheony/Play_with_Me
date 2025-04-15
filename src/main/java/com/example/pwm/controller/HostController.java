@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pwm.controller.dto.JoinRequest;
 import com.example.pwm.service.HostService;
@@ -11,6 +12,7 @@ import com.example.pwm.service.HostService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
+@RestController
 @RequiredArgsConstructor
 public class HostController {
 
