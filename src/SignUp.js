@@ -4,8 +4,8 @@ import './styles/SignUp.css';
 
 function SignUp() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [nickname, setNickname] = useState('');
+  const [passwd, setPasswd] = useState('');
+  const [name, setName] = useState('');
   const [agree, setAgree] = useState(false);
 
   // 이메일 양식 맞는지 검토
@@ -22,7 +22,7 @@ function SignUp() {
       return;
     }
 
-    if (password.length < 8 || password.length > 20) {
+    if (passwd.length < 8 || passwd.length > 20) {
       alert('비밀번호의 양식을 8~20자로 해주세요.');
       return;
     }
@@ -39,7 +39,7 @@ function SignUp() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, nickname }),
+        body: JSON.stringify({ email, passwd, name }),
       });
 
       if (!response.ok) {
@@ -51,8 +51,8 @@ function SignUp() {
       alert('✅ 회원가입이 완료되었습니다!');
       // 성공 후 폼 입력 값 초기화
       setEmail('');
-      setPassword('');
-      setNickname('');
+      setPasswd('');
+      setName('');
       setAgree(false);
 
     } catch (error) {
@@ -77,15 +77,15 @@ function SignUp() {
         <input
           type="password"
           placeholder="8~20자리 비밀번호"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={passwd}
+          onChange={(e) => setPasswd(e.target.value)}
         />
 
         <label>별명</label>
         <textarea
           placeholder="사용하실 별명을 입력해주세요."
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
 
         <div className="checkbox-area">

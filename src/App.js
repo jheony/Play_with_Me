@@ -1,11 +1,11 @@
 import React from 'react';
+import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './Home';
 import MyPage from './MyPage';
 import SignIn from './SignIn';
-import './App.css';
 import SignUp from './SignUp';
 
 
