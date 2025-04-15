@@ -8,5 +8,4 @@ public class PwmApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PwmApplication.class, args);
 	}
-
 }

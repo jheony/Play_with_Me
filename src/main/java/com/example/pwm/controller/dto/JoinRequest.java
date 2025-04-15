@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class JoinRequest {
-    private String name;
-
     private String email;
     
     private String passwd;
+
+    private String name;
 }

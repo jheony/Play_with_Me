@@ -37,7 +37,7 @@ public class Host {
     @Column(nullable = false, unique = true, length = 30, name = "h_email")
     private String email;
 
-    @Column(nullable = false, length = 20, name = "h_passwd")
+    @Column(nullable = false, name = "h_passwd")
     private String passwd;
     
     @CreationTimestamp
