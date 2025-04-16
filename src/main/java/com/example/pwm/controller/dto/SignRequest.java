@@ -3,7 +3,9 @@ package com.example.pwm.controller.dto;
 import lombok.Data;
 
 @Data
-public class JoinRequest {
+public class SignRequest {
+    private Long id;
+    
     private String email;
     
     private String passwd;
