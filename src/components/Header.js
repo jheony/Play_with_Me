@@ -21,9 +21,7 @@ function Header() {
       <a href="/home" className="maintext-link">PLAY with ME</a>
       </div>
       <div className="center-section">
-        <span>(별명)님 환영합니다!</span>
-        <a href="/mypage" className="text-link">마이페이지</a>
-        <a href="/settings" className="text-link">설정</a>
+        
       </div>
       <div className="right-section">
       <button className="sign-in" onClick={handleSignInClick}>Sign in</button>
