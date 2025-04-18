@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css'; 
 import './styles/SignUp.css';
 
 function SignUp() {
@@ -12,7 +13,7 @@ function SignUp() {
     return emailRegex.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateEmail(email)) {
@@ -20,17 +21,43 @@ function SignUp() {
       return;
     }
 
-    if (passwd.length < 8 || passwd.length > 20) { //설정한 비밀번호가 8~20자리가 아닐 때
-        alert('비밀번호의 양식을 8~20자로 해주세요.');
-        return;
-      }
+    if (passwd.length < 8 || passwd.length > 20) {
+      alert('비밀번호의 양식을 8~20자로 해주세요.');
+      return;
+    }
 
-    if (!agree) { //이메일 수신 동의 checkbox 클릭 하지 않을 시
+    if (!agree) {
       alert('이메일 수신 동의를 해주세요.');
       return;
     }
-    // 추후: DB 연결 및 전송 로직
-    alert('회원가입이 완료되었습니다!');
+
+    // ✅ API로 회원가입 정보 전송
+    try {
+      const response = await fetch('/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, passwd, name }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(`❌ 회원가입 실패: ${errorData.message || '에러가 발생했습니다.'}`);
+        return;
+      }
+
+      alert('✅ 회원가입이 완료되었습니다!');
+      // 성공 후 폼 초기화
+      setEmail('');
+      setPasswd('');
+      setName('');
+      setAgree(false);
+
+    } catch (error) {
+      console.error('회원가입 오류:', error);
+      alert('서버와 연결에 문제가 생겼습니다.');
+    }
   };
 
   return (
@@ -55,7 +82,7 @@ function SignUp() {
 
         <label>별명</label>
         <textarea
-          //placeholder="사용하실 별명을 입력해주세요."
+          placeholder="사용하실 별명을 입력해주세요."
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
