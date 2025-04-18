@@ -3,8 +3,8 @@ import './styles/SignUp.css';
 
 function SignUp() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [nickname, setNickname] = useState('');
+  const [passwd, setPasswd] = useState('');
+  const [name, setName] = useState('');
   const [agree, setAgree] = useState(false);
 
   const validateEmail = (email) => {
@@ -20,7 +20,7 @@ function SignUp() {
       return;
     }
 
-    if (password.length < 8 || password.length > 20) { //설정한 비밀번호가 8~20자리가 아닐 때
+    if (passwd.length < 8 || passwd.length > 20) { //설정한 비밀번호가 8~20자리가 아닐 때
         alert('비밀번호의 양식을 8~20자로 해주세요.');
         return;
       }
@@ -49,15 +49,15 @@ function SignUp() {
         <input
           type="password"
           placeholder="8~20자리 비밀번호"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={passwd}
+          onChange={(e) => setPasswd(e.target.value)}
         />
 
         <label>별명</label>
         <textarea
           //placeholder="사용하실 별명을 입력해주세요."
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
 
         <div className="checkbox-area">
