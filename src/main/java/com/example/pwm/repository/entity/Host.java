@@ -18,11 +18,11 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table(name = "host")
 @Getter
 @Builder
 @ToString
 @AllArgsConstructor
-@Table(name = "host")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Host {
 
@@ -42,4 +42,11 @@ public class Host {
     
     @CreationTimestamp
     private LocalDate createdAt;
+
+    public void changeName(String name){    // 이름 수정
+        this.name = name;
+    }
+    public void changePw(String passwd){    // 비밀번호 수정
+        this.passwd = passwd;
+    }
 }
