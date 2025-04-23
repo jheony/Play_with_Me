@@ -8,9 +8,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class AuthController {
     @GetMapping("/auth/signin/kakao")
-    public ResponseEntity<?> kakaoLogin (@RequestParam("code") 
-    String accessCode, HttpServletResponse httpServletResponse){
+    public ResponseEntity<?> kakaoLogin(@RequestParam("code") String accessCode,
+            HttpServletResponse httpServletResponse) {
+
         return null;
-        
     }
 }

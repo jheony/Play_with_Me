@@ -39,14 +39,15 @@ public class Host {
 
     @Column(nullable = false, name = "h_passwd")
     private String passwd;
-    
+
     @CreationTimestamp
     private LocalDate createdAt;
 
-    public void changeName(String name){    // 이름 수정
+    public void changeName(String name) { // 이름 수정
         this.name = name;
     }
-    public void changePw(String passwd){    // 비밀번호 수정
+
+    public void changePw(String passwd) { // 비밀번호 수정
         this.passwd = passwd;
     }
 }

@@ -15,14 +15,14 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SignResponse {
     private Long id;
-    
+
     private String email;
-    
+
     private String passwd;
 
     private String name;
 
-    public SignResponse(Host host){
+    public SignResponse(Host host) {
         this.email = host.getEmail();
         this.passwd = host.getPasswd();
         this.name = host.getName();

@@ -1,13 +1,23 @@
 package com.example.pwm.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.pwm.controller.dto.HostDTO;
+import com.example.pwm.controller.dto.PageRequestDTO;
+import com.example.pwm.controller.dto.PageResponseDTO;
 import com.example.pwm.controller.dto.SignRequest;
 import com.example.pwm.repository.HostRepository;
 import com.example.pwm.repository.entity.Host;
@@ -16,22 +26,23 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class HostServiceImpl implements HostService{
+public class HostServiceImpl implements HostService {
 
     private final HostRepository hostRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
     @Override
-    public Long register(HostDTO hostDTO){
+    public Long register(HostDTO hostDTO) {
         Host host = modelMapper.map(hostDTO, Host.class);
         Host saveHost = hostRepository.save(host);
 
         return saveHost.getId();
 
     }
+
     @Override
-    public HostDTO get(Long id){
+    public HostDTO get(Long id) {
         Optional<Host> result = hostRepository.findById(id);
         Host host = result.orElseThrow();
         HostDTO hostDTO = modelMapper.map(host, HostDTO.class);
@@ -40,7 +51,7 @@ public class HostServiceImpl implements HostService{
     }
 
     @Override
-    public void modify(HostDTO hostDTO){
+    public void modify(HostDTO hostDTO) {
         Optional<Host> result = hostRepository.findById(hostDTO.getId());
 
         Host host = result.orElseThrow();
@@ -50,15 +61,43 @@ public class HostServiceImpl implements HostService{
 
         hostRepository.save(host);
     }
+
     @Override
-    public void remove(Long id){
+    public void remove(Long id) {
         hostRepository.deleteById(id);
     }
+
+    @Override
+    public PageResponseDTO<HostDTO> list(PageRequestDTO pageRequestDTO) {
+        Pageable pageable = PageRequest.of(
+                pageRequestDTO.getPage() - 1,
+                pageRequestDTO.getSize(),
+                Sort.by("id").descending());
+
+        Page<Host> result = hostRepository.findAll(pageable);
+
+        List<HostDTO> dtoList = result.getContent().stream()
+                .map(host -> modelMapper.map(host, HostDTO.class))
+                .collect(Collectors.toList());
+
+        long totalCnt = result.getTotalElements();
+
+        PageResponseDTO<HostDTO> responseDTO = PageResponseDTO.<HostDTO>withAll()
+                .dtoList(dtoList)
+                .pageRequestDTO(pageRequestDTO)
+                .totalCnt(totalCnt)
+                .build();
+
+        return responseDTO;
+
+    }
+
+    // -----------------------------------------------------------------
     @Override
     public String join(SignRequest signRequest) {
-        
+
         // 이메일 중복 체크
-        hostRepository.findByEmail(signRequest.getEmail()).ifPresent(host -> { 
+        hostRepository.findByEmail(signRequest.getEmail()).ifPresent(host -> {
             throw new IllegalStateException("이미 존재하는 이메일입니다.");
         });
 
@@ -76,13 +115,14 @@ public class HostServiceImpl implements HostService{
     }
 
     @Override
-    public String login(SignRequest signRequest){
-        Host host = hostRepository.findByEmail(signRequest.getEmail()).orElseThrow(() -> new BadCredentialsException("잘못된 이메일입니다."));      
+    public String login(SignRequest signRequest) {
+        Host host = hostRepository.findByEmail(signRequest.getEmail())
+                .orElseThrow(() -> new BadCredentialsException("잘못된 이메일입니다."));
 
         if (!passwordEncoder.matches(signRequest.getPasswd(), host.getPasswd())) {
             throw new BadCredentialsException("잘못된 비밀번호입니다.");
         }
 
         return "Success";
-    } 
+    }
 }

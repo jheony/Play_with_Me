@@ -23,15 +23,17 @@ public class HostController {
     public ResponseEntity<String> signup(@RequestBody SignRequest signRequest) throws Exception {
 
         hostService.join(signRequest);
+
         return ResponseEntity.ok().body("회원가입 성공");
     }
 
-    //로그인 
+    // 로그인
     @PostMapping("/signin")
     public ResponseEntity<String> login(@RequestBody SignRequest signRequest) {
-        hostService.login(signRequest);
-        return ResponseEntity.ok().body("로그인 성공");
 
+        hostService.login(signRequest);
+
+        return ResponseEntity.ok().body("로그인 성공");
     }
-    
+
 }

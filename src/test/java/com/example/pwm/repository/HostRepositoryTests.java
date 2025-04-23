@@ -15,34 +15,39 @@ import org.springframework.data.domain.Sort;
 
 import com.example.pwm.repository.entity.Host;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @SpringBootTest
-@TestMethodOrder(OrderAnnotation.class) 
+@TestMethodOrder(OrderAnnotation.class)
 public class HostRepositoryTests {
     @Autowired
     private HostRepository hostRepository;
 
     @Test
     @Order(1)
-    public void testInsert(){
-        for(int i=0; i<=100; i++){
+    public void testInsert() {
+        for (int i = 0; i <= 100; i++) {
             Host host = Host.builder()
-            .name("test")
-            .email("test"+i+"@test.com")
-            .passwd("test1234")
-            .build();
-            
+                    .name("test")
+                    .email("test" + i + "@test.com")
+                    .passwd("test1234")
+                    .build();
+
             hostRepository.save(host);
         }
     }
+
     @Test
-    public void testRead(){
+    public void testRead() {
         Long id = 33L;
         Optional<Host> result = hostRepository.findById(id);
         Host host = result.orElseThrow();
-        //log.info(host);
+        log.info("host{}", host);
     }
+
     @Test
-    public void testModify(){
+    public void testModify() {
         Long id = 33L;
         Optional<Host> result = hostRepository.findById(id);
         Host host = result.orElseThrow();
@@ -51,16 +56,28 @@ public class HostRepositoryTests {
 
         hostRepository.save(host);
     }
+
     @Test
-    public void testDelete(){
+    public void testDelete() {
         Long id = 1L;
         hostRepository.deleteById(id);
     }
-    
+
     @Test
-    public void testPaging(){
+    public void testPaging() {
+        for (int i = 0; i <= 100; i++) {
+            Host host = Host.builder()
+                    .name("test")
+                    .email("test" + i + "@test.com")
+                    .passwd("test1234")
+                    .build();
+
+            hostRepository.save(host);
+        }
         Pageable pageable = PageRequest.of(0, 10, Sort.by("id").descending());
-        
+
         Page<Host> result = hostRepository.findAll(pageable);
+        log.info("result{}", result.getTotalElements());
+        result.getContent().stream().forEach(host -> log.info("host{}", host));
     }
 }
