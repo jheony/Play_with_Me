@@ -8,10 +8,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.example.pwm.security.filter.JWTCheckFilter;
 import com.example.pwm.security.handler.APILoginFailHandler;
 import com.example.pwm.security.handler.APILoginSuccessHandler;
 
@@ -48,13 +50,12 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(frame -> frame.disable())) // X-Frame-Options 비활성화
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(config -> {
-                    config.loginPage("/api/host/login");
-                    config.usernameParameter("email");
-                    config.passwordParameter("passwd");
-
+                    config.loginPage("/api/host/login"); 
                     config.successHandler(new APILoginSuccessHandler());
                     config.failureHandler(new APILoginFailHandler());
                 });
+            http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);     //JWT체크
+            
         return http.build();
     }
 

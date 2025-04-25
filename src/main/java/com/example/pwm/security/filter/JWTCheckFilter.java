@@ -1,0 +1,65 @@
+package com.example.pwm.security.filter;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.http.HttpRequest;
+import java.util.Map;
+
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.example.pwm.util.JWTUtil;
+import com.google.gson.Gson;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class JWTCheckFilter extends OncePerRequestFilter{
+    
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException{
+        String path = request.getRequestURI();
+        log.info("check uri............{}", path);
+        
+        /* 로그인 처리 경로, 첨부파일 이미지를 사용하는 경로 등 예외
+        if(request.getMethod().equals("OPTIONS")){
+            return true;
+        }
+        if(path.startsWith("/api/host/")){
+            return true;
+        }
+        if(path.startsWith("/api/host/view/")){
+            return true;
+        }
+        */
+        return false;
+    }
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException{
+        log.info("--------------JWTCheckFilter---------------");
+        String autthHeaderStr = request.getHeader("Authorization");
+        try{
+            String accessToken = autthHeaderStr.substring(7);
+            Map<String, Object> claims = JWTUtil.validateToken(accessToken);
+
+            log.info("JWT Claims: {}", claims);
+            filterChain.doFilter(request, response);
+        }catch(Exception e){
+            log.error("JWT Check Error..................");
+            log.error(e.getMessage());
+
+            Gson gson = new Gson();
+            String msg = gson.toJson(Map.of("error", "ERROR_ACCESS_TOKEN"));
+
+            response.setContentType("application/json");
+            PrintWriter printWriter = response.getWriter();
+            printWriter.println(msg);
+            printWriter.close();
+        }
+    }
+
+}
