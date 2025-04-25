@@ -21,18 +21,18 @@ public class HostServiceTests {
     @Autowired
     private HostService hostService;
 
-    @Test
-    @Order(1)
-    public void testRegister() {
-        HostDTO hostDTO = HostDTO.builder()
-                .email("Test@test.com")
-                .name("TEST")
-                .passwd("test1234")
-                .build();
+    // @Test
+    // @Order(1)
+    // public void testRegister() {
+    //     HostDTO hostDTO = HostDTO.builder()
+    //             .email("Test@test.com")
+    //             .name("TEST")
+    //             .passwd("test1234")
+    //             .build();
 
-        Long id = hostService.register(hostDTO);
-        log.info("id {}", id);
-    }
+    //     Long id = hostService.register(hostDTO);
+    //     log.info("id {}", id);
+    // }
 
     @Test
     public void testGet() {

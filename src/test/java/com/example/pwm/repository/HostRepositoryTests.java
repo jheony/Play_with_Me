@@ -12,8 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.pwm.repository.entity.Host;
+import com.example.pwm.repository.entity.HostRole;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,19 +25,29 @@ import lombok.extern.slf4j.Slf4j;
 public class HostRepositoryTests {
     @Autowired
     private HostRepository hostRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Test
     @Order(1)
     public void testInsert() {
-        for (int i = 0; i <= 100; i++) {
+        for (int i = 0; i <= 10; i++) {
             Host host = Host.builder()
-                    .name("test")
+                    .name("test"+i)
                     .email("test" + i + "@test.com")
-                    .passwd("test1234")
+                    .passwd(passwordEncoder.encode("test1234"))
                     .build();
+            host.addRole(HostRole.USER);
 
+            if(i>=3){
+                host.addRole(HostRole.ADMIN);
+            }
             hostRepository.save(host);
         }
+        String email = "test4@test.com";
+        Host host = hostRepository.getWithRoles(email);
+        log.info("-------------------------------");
+        log.info("{}",host);
     }
 
     @Test
