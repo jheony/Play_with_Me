@@ -12,14 +12,13 @@ import com.example.pwm.service.HostService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api")
 @RequiredArgsConstructor
 public class HostController {
 
     private final HostService hostService;
 
     // 회원가입
-    @PostMapping("/signup")
+    @PostMapping("api/signup")
     public ResponseEntity<String> signup(@RequestBody SignRequest signRequest) throws Exception {
 
         hostService.join(signRequest);
@@ -27,13 +26,13 @@ public class HostController {
         return ResponseEntity.ok().body("회원가입 성공");
     }
 
-    // 로그인
-    @PostMapping("/signin")
-    public ResponseEntity<String> login(@RequestBody SignRequest signRequest) {
+    // 로그인 -> LoginForm으로
+    // @PostMapping("api/host/signin")
+    // public ResponseEntity<String> login(@RequestBody SignRequest signRequest) {
 
-        hostService.login(signRequest);
+    //     hostService.login(signRequest);
 
-        return ResponseEntity.ok().body("로그인 성공");
-    }
+    //     return ResponseEntity.ok().body("로그인 성공");
+    // }
 
 }

@@ -29,14 +29,14 @@ public class UserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException("Not Found");
         }
 
-        HostDTO HostDTO = new HostDTO(
+        HostDTO hostDTO = new HostDTO(
             host.getEmail(),
             host.getPasswd(),
             host.getName(),
             host.getHostRoleList()
             .stream().map(hostRole -> hostRole.name()).collect(Collectors.toList()));
 
-        log.info("{}",HostDTO);
-        return HostDTO;
+        log.info("{}",hostDTO);
+        return hostDTO;
     }
 }

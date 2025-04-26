@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.example.pwm.controller.formatter.LocalDateFormatter;
 
 @Configuration
-public class ServletConfig implements WebMvcConfigurer {
+public class CustomServletConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {

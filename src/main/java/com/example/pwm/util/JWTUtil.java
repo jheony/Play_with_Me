@@ -50,15 +50,15 @@ public class JWTUtil {
             .parseClaimsJws(Token)
             .getBody();
         }catch( MalformedJwtException malformedJwtException){
-            throw new JWTException("Malformed");
+            throw new CustomJWTException("Malformed");
         }catch( ExpiredJwtException expiredJwtException){
-            throw new JWTException("Expired");
+            throw new CustomJWTException("Expired");
         }catch(InvalidClaimException exClaimException){
-            throw new JWTException("Invalid");
+            throw new CustomJWTException("Invalid");
         }catch(JwtException jwtException ){
-            throw new JWTException("JWTError");
+            throw new CustomJWTException("JWTError");
         }catch(Exception e){
-            throw new JWTException("Error");
+            throw new CustomJWTException("Error");
         }
         return claim;
     }
