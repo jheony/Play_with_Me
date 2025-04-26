@@ -75,16 +75,39 @@ textarea {
   font-weight: 600;
 }
 
-/*.react-calendar__tile--active:enabled:focus {
-  background: #94c4e0 !important;
-}*/
-/*캘린더 날짜 클릭 시 색상 변경*/
-
-
 .react-calendar__tile--neighboringMonth {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding-top: 2px;
   height: 100%;
+}
+
+.time-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* 각 칸 사이 간격 */
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.time-slot-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.time-slot {
+  transition: 0.2s;
+}
+
+.time-slot:hover {
+  opacity: 0.8;
+}
+
+.select-time-label {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 100px;
 }
