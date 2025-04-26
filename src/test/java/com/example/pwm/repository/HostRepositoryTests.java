@@ -31,7 +31,7 @@ public class HostRepositoryTests {
     @Test
     @Order(1)
     public void testInsert() {
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 100; i++) {
             Host host = Host.builder()
                     .name("test"+i)
                     .email("test" + i + "@test.com")
@@ -39,7 +39,7 @@ public class HostRepositoryTests {
                     .build();
             host.addRole(HostRole.USER);
 
-            if(i>=3){
+            if(i>=8){
                 host.addRole(HostRole.ADMIN);
             }
             hostRepository.save(host);
@@ -77,15 +77,7 @@ public class HostRepositoryTests {
 
     @Test
     public void testPaging() {
-        for (int i = 0; i <= 100; i++) {
-            Host host = Host.builder()
-                    .name("test")
-                    .email("test" + i + "@test.com")
-                    .passwd("test1234")
-                    .build();
 
-            hostRepository.save(host);
-        }
         Pageable pageable = PageRequest.of(0, 10, Sort.by("id").descending());
 
         Page<Host> result = hostRepository.findAll(pageable);
