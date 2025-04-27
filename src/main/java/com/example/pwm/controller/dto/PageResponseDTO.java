@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 import lombok.Builder;
 import lombok.Data;
 
+// 페이지 응답 정보를 담는 클래스
 @Data
 public class PageResponseDTO<E> {
 
@@ -37,8 +38,8 @@ public class PageResponseDTO<E> {
         if (next) {
             this.nextPage = end + 1;
         }
+
         this.totalPage = this.pageNumList.size();
         this.current = pageRequestDTO.getPage();
-
     }
 }

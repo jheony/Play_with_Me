@@ -19,24 +19,25 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserDetailService implements UserDetailsService {
     private final HostRepository hostRepository;
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("---------------loadUserByUsername-----------------{}", username);
 
         Host host = hostRepository.getWithRoles(username);
 
-        if(host == null){
+        if (host == null) {
             throw new UsernameNotFoundException("Not Found");
         }
 
         HostDTO hostDTO = new HostDTO(
-            host.getEmail(),
-            host.getPasswd(),
-            host.getName(),
-            host.getHostRoleList()
-            .stream().map(hostRole -> hostRole.name()).collect(Collectors.toList()));
+                host.getEmail(),
+                host.getPasswd(),
+                host.getName(),
+                host.getHostRoleList()
+                        .stream().map(hostRole -> hostRole.name()).collect(Collectors.toList()));
 
-        log.info("{}",hostDTO);
+        log.info("hostDTO: {}", hostDTO);
         return hostDTO;
     }
 }

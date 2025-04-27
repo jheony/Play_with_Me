@@ -1,5 +1,7 @@
 package com.example.pwm.controller;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,22 +18,11 @@ public class HostController {
 
     private final HostService hostService;
 
-    // 회원가입
-    @PostMapping("api/signup")
-    public ResponseEntity<String> signup(@RequestBody SignRequest signRequest) throws Exception {
-
+    // 회원가입 처리
+    @PostMapping("/api/signup")
+    public ResponseEntity<Map<String, String>> signup(@RequestBody SignRequest signRequest) {
         hostService.join(signRequest);
-
-        return ResponseEntity.ok().body("회원가입 성공");
+        return ResponseEntity.ok(Map.of("message", "회원가입 성공"));
     }
-
-    // 로그인 -> LoginForm으로
-    // @PostMapping("api/host/signin")
-    // public ResponseEntity<String> login(@RequestBody SignRequest signRequest) {
-
-    //     hostService.login(signRequest);
-
-    //     return ResponseEntity.ok().body("로그인 성공");
-    // }
-
+    
 }

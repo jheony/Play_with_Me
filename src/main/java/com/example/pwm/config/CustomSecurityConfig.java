@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @Slf4j
 @RequiredArgsConstructor
-@EnableWebSecurity      //@PreAuthorize("hasAnyRole('ROLE_USER''ROLE_ADMIN')") 권한설정
+@EnableWebSecurity // @PreAuthorize("hasAnyRole('ROLE_USER''ROLE_ADMIN')") 권한설정
 public class CustomSecurityConfig {
 
     @Bean
@@ -33,18 +33,24 @@ public class CustomSecurityConfig {
         log.info("-----------security config------------");
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+
                 .csrf(csrf -> csrf.disable())
                 .headers(headers -> headers.frameOptions(frame -> frame.disable())) // X-Frame-Options 비활성화
+
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
                 .formLogin(config -> {
-                    config.loginPage("/api/signin"); 
+                    config.loginPage("/api/signin");
                     config.successHandler(new APILoginSuccessHandler());
                     config.failureHandler(new APILoginFailHandler());
+                })
+
+                .addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class) // JWT체크
+
+                .exceptionHandling(config -> {
+                    config.accessDeniedHandler(new CustomAccesssDeniedHandler());
                 });
-            http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);     //JWT체크
-            
-            http.exceptionHandling(config -> {config.accessDeniedHandler(new CustomAccesssDeniedHandler());
-            });
+                
         return http.build();
     }
 

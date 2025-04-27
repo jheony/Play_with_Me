@@ -13,6 +13,7 @@ public interface HostRepository extends JpaRepository<Host, Long> {
 
     Optional<Host> findByEmail(String email);
 
+    // 이메일로 회원 정보 조회
     @EntityGraph(attributePaths = {"hostRoleList"})
     @Query("select m from Host m where m.email = :email")
     Host getWithRoles(@Param("email") String email); 

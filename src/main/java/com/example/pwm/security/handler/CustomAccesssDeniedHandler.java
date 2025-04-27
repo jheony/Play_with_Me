@@ -15,12 +15,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class CustomAccesssDeniedHandler implements AccessDeniedHandler {
-    
+
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException{
+    public void handle(HttpServletRequest request, HttpServletResponse response,
+            AccessDeniedException accessDeniedException) throws IOException, ServletException {
         Gson gson = new Gson();
 
-        String jsonStr = gson.toJson(Map.of("error", "ERROR_ACCESSEDENIED"));
+        String jsonStr = gson.toJson(Map.of("error", "ERROR_ACCESSDENIED"));
 
         response.setContentType("application/json");
         response.setStatus(HttpStatus.FORBIDDEN.value());

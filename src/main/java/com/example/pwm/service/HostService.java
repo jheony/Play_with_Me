@@ -17,7 +17,4 @@ public interface HostService {
     PageResponseDTO<HostDTO> list(PageRequestDTO pageRequestDTO);
 
     String join(SignRequest signRequest); // 회원가입
-
-    String login(SignRequest signRequest); // 로그인
-
 }

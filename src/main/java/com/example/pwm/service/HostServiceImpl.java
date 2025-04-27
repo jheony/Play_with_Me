@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,15 +31,37 @@ public class HostServiceImpl implements HostService {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
+    // 회원가입 처리
+    @Override
+    public String join(SignRequest signRequest) {
+
+        // 이메일 중복 체크
+        hostRepository.findByEmail(signRequest.getEmail()).ifPresent(host -> {
+            throw new IllegalStateException("이미 존재하는 이메일입니다.");
+        });
+
+        // 비밀번호 암호화
+        String hashPw = passwordEncoder.encode(signRequest.getPasswd());
+
+        Host host = Host.builder()
+                .email(signRequest.getEmail())
+                .passwd(hashPw)
+                .name(signRequest.getName())
+                .build();
+
+        hostRepository.save(host);
+        return "success";
+    }
+    // 등록
     @Override
     public Long register(HostDTO hostDTO) {
         Host host = modelMapper.map(hostDTO, Host.class);
         Host saveHost = hostRepository.save(host);
 
         return saveHost.getId();
-
     }
 
+    // host 조회
     @Override
     public HostDTO get(Long id) {
         Optional<Host> result = hostRepository.findById(id);
@@ -50,23 +71,22 @@ public class HostServiceImpl implements HostService {
         return hostDTO;
     }
 
+    // host 수정
     @Override
     public void modify(HostDTO hostDTO) {
-        Optional<Host> result = hostRepository.findById(hostDTO.getId());
-
-        Host host = result.orElseThrow();
-
+        Host host = hostRepository.findById(hostDTO.getId()).orElseThrow();
         host.changeName(hostDTO.getName());
         host.changePw(hostDTO.getPasswd());
-
         hostRepository.save(host);
     }
 
+    // host 삭제
     @Override
     public void remove(Long id) {
         hostRepository.deleteById(id);
     }
 
+    // 목록 조회
     @Override
     public PageResponseDTO<HostDTO> list(PageRequestDTO pageRequestDTO) {
         Pageable pageable = PageRequest.of(
@@ -90,39 +110,5 @@ public class HostServiceImpl implements HostService {
 
         return responseDTO;
 
-    }
-
-    // -----------------------------------------------------------------
-    @Override
-    public String join(SignRequest signRequest) {
-
-        // 이메일 중복 체크
-        hostRepository.findByEmail(signRequest.getEmail()).ifPresent(host -> {
-            throw new IllegalStateException("이미 존재하는 이메일입니다.");
-        });
-
-        // 비밀번호 암호화
-        String hashPw = passwordEncoder.encode(signRequest.getPasswd());
-
-        Host host = Host.builder()
-                .email(signRequest.getEmail())
-                .passwd(hashPw)
-                .name(signRequest.getName())
-                .build();
-
-        hostRepository.save(host);
-        return "success";
-    }
-
-    @Override
-    public String login(SignRequest signRequest) {
-        Host host = hostRepository.findByEmail(signRequest.getEmail())
-                .orElseThrow(() -> new BadCredentialsException("잘못된 이메일입니다."));
-
-        if (!passwordEncoder.matches(signRequest.getPasswd(), host.getPasswd())) {
-            throw new BadCredentialsException("잘못된 비밀번호입니다.");
-        }
-
-        return "Success";
     }
 }

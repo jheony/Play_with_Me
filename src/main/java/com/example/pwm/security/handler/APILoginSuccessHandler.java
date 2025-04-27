@@ -16,30 +16,25 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
 public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
+
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        log.info("-------------------------------");
-        log.info("Handler: {}", authentication);
-        log.info("-------------------------------");
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+            throws IOException, ServletException {
 
         HostDTO hostDTO = (HostDTO) authentication.getPrincipal();
-
         Map<String, Object> claims = hostDTO.getClaims();
 
-        String accessToken = JWTUtil.generateToken(claims, 10);     //10분
-        String refreshToken = JWTUtil.generateToken(claims, 60*24);     // 24시간
-        
+        String accessToken = JWTUtil.generateToken(claims, 10);
+        String refreshToken = JWTUtil.generateToken(claims, 60 * 24);
+
         claims.put("accessToken", accessToken);
         claims.put("refreshToken", refreshToken);
 
-        Gson gson = new Gson();
-        String jsonStr = gson.toJson(claims);
         response.setContentType("application/json; charset=UTF-8");
         PrintWriter printWriter = response.getWriter();
-        printWriter.println(jsonStr);
+        printWriter.println(new Gson().toJson(claims));
         printWriter.close();
     }
 }
