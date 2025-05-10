@@ -11,6 +11,6 @@ public class AuthController {
     public ResponseEntity<?> kakaoLogin(@RequestParam("code") String accessCode,
             HttpServletResponse httpServletResponse) {
 
-        return null;    //TODO
+        return null;   
     }
 }

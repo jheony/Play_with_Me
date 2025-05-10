@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.pwm.util.CustomJWTException;
 import com.example.pwm.util.JWTUtil;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @RestController
 public class APIRefreshController {

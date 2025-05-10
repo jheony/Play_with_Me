@@ -25,7 +25,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
 
-        if (path.startsWith("/api/host/") || path.startsWith("/api/sign") || path.startsWith("/h2-console") || path.startsWith("/favicon.ico")) {
+        if (path.startsWith("/api/host/") || path.startsWith("/api/sign") || path.startsWith("/swagger") || path.startsWith("/swagger-ui.html") || path.startsWith("/swagger-ui/**") ||path.startsWith("/api-docs") ||path.startsWith("/swagger") || path.startsWith("/api-docs/**") || path.startsWith("/v3/api-docs/**"))  {
             return true;
         }
         return false;

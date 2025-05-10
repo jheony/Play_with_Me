@@ -32,25 +32,41 @@ public class CustomSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         log.info("-----------security config------------");
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화 (테스트용)
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll() // 모든 요청 허용
+                )
+                .formLogin(login -> login.disable()) // 폼 로그인 비활성화 (선택사항)
+                .httpBasic(basic -> basic.disable()); // HTTP Basic 비활성화 (선택사항)
 
-                .csrf(csrf -> csrf.disable())
-                .headers(headers -> headers.frameOptions(frame -> frame.disable())) // X-Frame-Options 비활성화
+        // .authorizeHttpRequests((auth) -> auth
+        // .requestMatchers("/error").permitAll()
+        // .requestMatchers("/swagger-ui.html", "/swagger-ui/**",
+        // "/v3/api-docs/**").permitAll()
+        // .anyRequest().authenticated())
 
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        // .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
-                .formLogin(config -> {
-                    config.loginPage("/api/signin");
-                    config.successHandler(new APILoginSuccessHandler());
-                    config.failureHandler(new APILoginFailHandler());
-                })
+        // .csrf(csrf -> csrf.disable())
+        // .headers(headers -> headers.frameOptions(frame -> frame.disable())) //
+        // X-Frame-Options 비활성화
 
-                .addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class) // JWT체크
+        // .sessionManagement(session ->
+        // session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                .exceptionHandling(config -> {
-                    config.accessDeniedHandler(new CustomAccesssDeniedHandler());
-                });
-                
+        // .formLogin(config -> {
+        // config.loginPage("/api/signin");
+        // config.successHandler(new APILoginSuccessHandler());
+        // config.failureHandler(new APILoginFailHandler());
+        // })
+
+        // .addFilterBefore(new JWTCheckFilter(),
+        // UsernamePasswordAuthenticationFilter.class) // JWT체크
+
+        // .exceptionHandling(config -> {
+        // config.accessDeniedHandler(new CustomAccesssDeniedHandler());
+        // });
+
         return http.build();
     }
 
