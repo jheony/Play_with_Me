@@ -32,7 +32,7 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
         claims.put("accessToken", accessToken);
         claims.put("refreshToken", refreshToken);
 
-        response.setContentType("application/json; charset=UTF-8");
+        response.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
         PrintWriter printWriter = response.getWriter();
         printWriter.println(new Gson().toJson(claims));
         printWriter.close();

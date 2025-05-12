@@ -36,8 +36,11 @@ public class CustomSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll() // 모든 요청 허용
                 )
-                .formLogin(login -> login.disable()) // 폼 로그인 비활성화 (선택사항)
-                .httpBasic(basic -> basic.disable()); // HTTP Basic 비활성화 (선택사항)
+        .formLogin(config -> {
+        config.loginPage("/api/signin");
+        config.successHandler(new APILoginSuccessHandler());
+        config.failureHandler(new APILoginFailHandler());
+        });
 
         // .authorizeHttpRequests((auth) -> auth
         // .requestMatchers("/error").permitAll()

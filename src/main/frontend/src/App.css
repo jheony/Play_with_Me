@@ -1,10 +1,107 @@
-.form-container {
+.main-layout {
+  display: flex;
+  margin-top: 100px;
+  padding: 20px;
+  gap: 40px;
+}
+
+.left-section {
+  flex: 1;
+}
+
+.right-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.calendar {
+  margin-bottom: 20px;
+  border-radius: 12px;
+  padding: 10px;
+  background-color: #fff;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  animation: fadeInUp 0.6s ease;
+}
+
+.react-calendar {
+  width: 100% !important;      
   max-width: 500px;
-  margin: 300px auto; 
+  font-size: 1.2rem;        
+  padding: 20px;
+  border: none;
+}
+
+.react-calendar__tile {
+  height: 174px !important;
+}
+
+.react-calendar__navigation button {
+  font-size: 1.5rem;     /* 월/연도 텍스트 크기 */
+  font-weight: bold;
+}
+
+.react-calendar__month-view__weekdays {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.react-calendar__tile--neighboringMonth {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 2px;
+  height: 100%;
+}
+
+.time-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 0; 
+}
+
+.time-slot-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.time-slot {
+  transition: 0.2s;
+}
+
+.time-slot:hover {
+  opacity: 0.8;
+}
+
+.time-section {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  animation: fadeInUp 0.6s ease;
+}
+
+.select-time-label {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 0;
+}
+
+
+.form-container {
+  max-width: none;
+  margin: 0;
   padding: 24px;
   border: 1px solid #fff;
   border-radius: 8px;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 form {
@@ -45,69 +142,4 @@ textarea {
 
 .next-button:hover {
   background-color: #70a4c2;
-}
-
-.calendar {
-  margin-bottom: 20px;
-  border-radius: 12px;
-  padding: 10px;
-  background-color: #fff;
-}
-
-.react-calendar {
-  width: 100% !important;      
-  max-width: 500px;
-  font-size: 1.2rem;        
-  padding: 20px;
-}
-
-.react-calendar__tile {
-  height: 120px !important;
-}
-
-.react-calendar__navigation button {
-  font-size: 1.5rem;     /* 월/연도 텍스트 크기 */
-  font-weight: bold;
-}
-
-.react-calendar__month-view__weekdays {
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.react-calendar__tile--neighboringMonth {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 2px;
-  height: 100%;
-}
-
-.time-slots {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; /* 각 칸 사이 간격 */
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.time-slot-list {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.time-slot {
-  transition: 0.2s;
-}
-
-.time-slot:hover {
-  opacity: 0.8;
-}
-
-.select-time-label {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 100px;
 }

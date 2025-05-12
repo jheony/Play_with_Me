@@ -23,7 +23,7 @@ public class CustomAccesssDeniedHandler implements AccessDeniedHandler {
 
         String jsonStr = gson.toJson(Map.of("error", "ERROR_ACCESSDENIED"));
 
-        response.setContentType("application/json");
+        response.setContentType("application/x-www-form-urlencoded");
         response.setStatus(HttpStatus.FORBIDDEN.value());
         PrintWriter printWriter = response.getWriter();
         printWriter.println(jsonStr);
