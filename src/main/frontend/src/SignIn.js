@@ -5,7 +5,7 @@ import './App.css';
 import './styles/SignIn.css';
 
 function SignIn() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ email: '', passwd: '' });
   const { signIn } = useContext(AuthContext); // 로그인 함수
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ function SignIn() {
     try {
       const response = await fetch('/api/signin', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: JSON.stringify(formData),
       });
 
@@ -31,10 +31,10 @@ function SignIn() {
       }
 
       const data = await response.json();
-      alert(`✅ 로그인 성공! 환영합니다, ${data.nickname || formData.email}님!`);
+      alert(`✅ 로그인 성공! 환영합니다, ${data.name || formData.email}님!`);
 
       // ✅ 로그인 성공 → 상태 저장
-      signIn({ name: data.nickname, email: formData.email });
+      SignIn({ name: data.name, email: formData.email });
 
       // ✅ 홈으로 이동
       navigate('/home');
