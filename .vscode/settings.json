@@ -1,0 +1,15 @@
+{
+    "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jdk-17",
+    "java.configuration.runtimes": [
+      
+      {
+        "name": "JavaSE-17",
+        "path": "C:\\Program Files\\Java\\jdk-17",
+        "default": true
+      }
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.configuration.detectJdksAtStart": true,
+    "java.compile.nullAnalysis.mode": "disabled"
+  }
+  

@@ -1,0 +1,53 @@
+.form-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  width: 100%;
+}
+
+.form-container {
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease, opacity 0.3s ease;
+animation: fadeInUp 0.6s ease;
+margin-top: 200px;
+}
+
+.signin-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin-top: 150px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+from {
+  transform: translateY(40px);
+  opacity: 0;
+}
+to {
+  transform: translateY(0);
+  opacity: 1;
+}
+}
+
+.next-button {
+  width: 400px;
+  font-size: 17px;
+}
+
+.signtext-link {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.signtext-link:hover {
+  text-decoration: underline;
+}
