@@ -26,19 +26,14 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
-.vscode/
-
 hs_err_pid*.log
 replay_pid*.log
 
+application-sensitive.yml
+application-sensitive.properties
+
+# Created by https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,java,gradle,intellij,eclipse,netbeans,git
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,visualstudiocode,java,gradle,intellij,eclipse,netbeans,git
 
 /node_modules
 

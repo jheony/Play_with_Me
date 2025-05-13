@@ -1,28 +1,19 @@
 package com.example.pwm.repository.entity;
 
 import java.time.LocalDate;
+import java.util.*;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Table(name = "host")
 @Getter
 @Builder
-@ToString
+@ToString(exclude = "hostRoleList")
 @AllArgsConstructor
-@Table(name = "host")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Host {
 
@@ -39,7 +30,27 @@ public class Host {
 
     @Column(nullable = false, name = "h_passwd")
     private String passwd;
-    
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<HostRole> hostRoleList = new ArrayList<>();
+
+    public void addRole(HostRole hostRole) {
+        hostRoleList.add(hostRole);
+    }
+
+    public void clearRole() {
+        hostRoleList.clear();
+    }
+
     @CreationTimestamp
     private LocalDate createdAt;
+
+    public void changeName(String name) { // 이름 수정
+        this.name = name;
+    }
+
+    public void changePw(String passwd) { // 비밀번호 수정
+        this.passwd = passwd;
+    }
 }
