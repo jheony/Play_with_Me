@@ -14,11 +14,6 @@ public class MailController {
 
     @GetMapping("/simple")
     public void sendSimpleMailMessage() {
-        mailService.sendSimpleMailMessage();
     }
  
-    // @GetMapping("/html")
-    // public void sendMimeMessage() {
-    //     mailService.sendMimeMessage();
-    // }
 }

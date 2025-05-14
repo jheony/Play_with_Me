@@ -28,11 +28,4 @@ public class HostController {
         return ResponseEntity.ok(Map.of("message", "회원가입 성공"));
     }
 
-    @GetMapping("/hello")
-    public ResponseEntity<String> hello(){
-        return ResponseEntity.ok("Hello world");
-    }
-
-    
-
 }
