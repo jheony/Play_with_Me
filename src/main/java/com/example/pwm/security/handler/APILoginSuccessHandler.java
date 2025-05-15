@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.example.pwm.controller.dto.HostDTO;
-import com.example.pwm.util.JWTUtil;
+import com.example.pwm.domain.host.HostDTO;
+import com.example.pwm.global.util.JWTUtil;
 import com.google.gson.Gson;
 
 import org.springframework.security.core.Authentication;

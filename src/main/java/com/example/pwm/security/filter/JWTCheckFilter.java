@@ -9,8 +9,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.pwm.controller.dto.HostDTO;
-import com.example.pwm.util.JWTUtil;
+import com.example.pwm.domain.host.HostDTO;
+import com.example.pwm.global.util.JWTUtil;
 import com.google.gson.Gson;
 
 import jakarta.servlet.FilterChain;
