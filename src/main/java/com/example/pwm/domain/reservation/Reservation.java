@@ -41,6 +41,7 @@ public class Reservation {
 
     @Column(nullable = false, name = "r_location")
     private String location;
+    
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private ReservState reservState = ReservState.PENDING;
