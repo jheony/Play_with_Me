@@ -17,20 +17,18 @@ public class HostDTO extends User {
 
     private Long id;
     private String email;
-    private String passwd;
     private String name;
     private List<String> roleNames = new ArrayList<>();
     
-    public HostDTO(String email, String passwd, String name, List<String> roleNames) {
+    public HostDTO(String email, String name, List<String> roleNames) {
         super(
             email,
-            passwd,
+            name,
             roleNames.stream()
                 .map(str -> new SimpleGrantedAuthority("ROLE_" + str))
                 .collect(Collectors.toList())
         );
         this.email = email;
-        this.passwd = passwd;
         this.name = name;
         this.roleNames = roleNames;
     }

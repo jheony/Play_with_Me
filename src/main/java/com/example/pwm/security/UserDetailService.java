@@ -32,7 +32,6 @@ public class UserDetailService implements UserDetailsService {
 
         HostDTO hostDTO = new HostDTO(
                 host.getEmail(),
-                host.getPasswd(),
                 host.getName(),
                 host.getHostRoleList()
                         .stream().map(hostRole -> hostRole.name()).collect(Collectors.toList()));

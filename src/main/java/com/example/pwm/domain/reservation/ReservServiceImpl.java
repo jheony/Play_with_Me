@@ -6,7 +6,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.pwm.domain.host.Host;
-import com.example.pwm.domain.host.HostDTO;
 import com.example.pwm.domain.host.HostRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -32,6 +31,21 @@ public class ReservServiceImpl implements ReservService {
         Reservation saveReserv = reservRepository.save(reservation);
 
         return saveReserv.getId();
+    }
+
+    @Override
+    public String acceptReserv(Long resId) {
+        Reservation res = reservRepository.findById(resId).orElseThrow();
+        res.setReservState(ReservState.CONFIRMED);
+        reservRepository.save(res);
+        return "예약이 수락되었습니다.";
+    }
+
+    @Override
+    public String cancelReserv(Long resId) {
+        Reservation res = reservRepository.findById(resId).orElseThrow();
+        reservRepository.delete(res);
+        return "예약이 거절되었습니다.";
     }
 
     @Override

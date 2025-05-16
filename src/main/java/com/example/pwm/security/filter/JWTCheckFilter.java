@@ -46,7 +46,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
             String name = (String) claims.get("name");
             List<String> roleNames = (List<String>) claims.get("roleNames");
 
-            HostDTO hostDTO = new HostDTO(email, passwd, name, roleNames);
+            HostDTO hostDTO = new HostDTO(email, name, roleNames);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(hostDTO, passwd, hostDTO.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);

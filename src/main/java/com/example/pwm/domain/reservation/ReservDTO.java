@@ -1,6 +1,6 @@
 package com.example.pwm.domain.reservation;
 
-import java.util.*;
+import com.example.pwm.domain.host.Host;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,5 +24,8 @@ public class ReservDTO {
     private String endTime;
     private String location;
 
-    private List<String> reservState = new ArrayList<>();    
+    private ReservState reservState = ReservState.PENDING;
+
+    private Host host;
+ 
 }
