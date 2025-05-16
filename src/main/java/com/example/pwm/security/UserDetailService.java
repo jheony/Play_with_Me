@@ -7,9 +7,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.pwm.controller.dto.HostDTO;
-import com.example.pwm.repository.HostRepository;
-import com.example.pwm.repository.entity.Host;
+import com.example.pwm.domain.host.HostDTO;
+import com.example.pwm.domain.host.HostRepository;
+import com.example.pwm.domain.host.Host;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,6 @@ public class UserDetailService implements UserDetailsService {
 
         HostDTO hostDTO = new HostDTO(
                 host.getEmail(),
-                host.getPasswd(),
                 host.getName(),
                 host.getHostRoleList()
                         .stream().map(hostRole -> hostRole.name()).collect(Collectors.toList()));
