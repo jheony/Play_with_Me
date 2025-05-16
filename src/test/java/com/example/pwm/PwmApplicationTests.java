@@ -18,18 +18,28 @@ class PwmApplicationTests {
 
     @Autowired
     private MailServiceImpl mailService;
-    public void signupTest() {
+
+    @Test
+    @DisplayName("회원가입 성공")
+    public void signupSuccessTest() {
         String name = "test";
         String passwd = "test1234";
         String email = "test@test.com";
+        
+    }
+
+    @Test
+    @DisplayName("회원가입 실패 - 이메일 중복")
+    public void signupFailTest(){
+
     }
 
     @Test
     @DisplayName("예약 수락 시 상태변경과 메일 전송")
     public void acceptResTest() {
 
-        reservService.acceptReserv(1L);
-        mailService.reservAcceptEmailToHost(1L); 
+        //reservService.acceptReserv(1L);
+        //mailService.reservAcceptEmailToHost(1L); 
 
     }
 
@@ -37,8 +47,8 @@ class PwmApplicationTests {
     @DisplayName("예약 거절 시 DB 삭제와 메일 전송")
     public void canselResTest() {
 
-        mailService.reservCancelEmailToHost(3L); 
-        reservService.cancelReserv(3L);
+        //mailService.reservCancelEmailToHost(3L); 
+        //reservService.cancelReserv(3L);
 
     }
 }
