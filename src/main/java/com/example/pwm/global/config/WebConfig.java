@@ -1,4 +1,4 @@
-package com.example.pwm.config;
+package com.example.pwm.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
