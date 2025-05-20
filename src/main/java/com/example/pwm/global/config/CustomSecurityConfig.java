@@ -1,4 +1,4 @@
-package com.example.pwm.config;
+package com.example.pwm.global.config;
 
 import java.util.Arrays;
 
