@@ -1,4 +1,8 @@
-package com.example.pwm.domain.reservation;
+package com.example.pwm.domain.schedule;
+
+import java.time.LocalDate;
+
+import com.example.pwm.domain.host.Host;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -12,18 +16,12 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservDTO {
+public class ScheduleDTO {
     @Schema(hidden = true)
     private Long id;
-    @Schema(hidden = true)
-    private Long hostId;
 
-    private String name;
     private String content;
-    private String email;
     private String startTime;
+    private String endTime;
     private String location;
-
-    @Schema(hidden = true)
-    private ReservState reservState = ReservState.PENDING;
 }

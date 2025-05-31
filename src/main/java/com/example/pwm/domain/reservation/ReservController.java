@@ -19,11 +19,14 @@ public class ReservController {
   private final ReservService reservService;
   private final MailServiceImpl mailService;
 
-  @PostMapping("/api/{hostId}/reserv")
+  @PostMapping("/api/reserv/{hostId}")
   public ResponseEntity<String> reservation(@PathVariable Long hostId, @RequestBody ReservDTO reservDTO) {
-    try {
-      reservService.register(reservDTO, hostId);
-      mailService.reservRequestEmailToHost(reservDTO, hostId);
+    try {      
+      reservDTO.setHostId(hostId);
+      Long resId = reservService.addReserv(reservDTO, hostId);
+
+      String hEmail = reservService.getHostEmail(resId);
+      mailService.reservRequestEmailToHost(reservDTO, hEmail);
 
       return ResponseEntity.ok("예약성공");
 
@@ -36,8 +39,10 @@ public class ReservController {
   @PatchMapping("/api/reserv/{resId}")
   public ResponseEntity<String> acceptReserv(@PathVariable Long resId) {
     try {
+      String hEmail = reservService.getHostEmail(resId);
+
       reservService.acceptReserv(resId);
-      mailService.reservAcceptEmailToHost(resId);
+      mailService.reservAcceptEmailToHost(resId, hEmail);
       return ResponseEntity.ok("예약수락");
 
     } catch (Exception e) {
@@ -49,7 +54,9 @@ public class ReservController {
   @DeleteMapping("/api/reserv/{resId}")
   public ResponseEntity<String> cancelReserv(@PathVariable Long resId) {
     try {
-      mailService.reservCancelEmailToHost(resId);   //메일 전송 후 삭제
+      String hEmail = reservService.getHostEmail(resId);
+
+      mailService.reservCancelEmailToHost(resId, hEmail);   //메일 전송 후 삭제
       reservService.cancelReserv(resId);  
       return ResponseEntity.ok("예약거절");
 

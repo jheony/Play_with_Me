@@ -47,7 +47,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "h_id")
-    private Host host;
+    private Host resHost;
     // public void addRole(ReservState reservState) {
     // reservStateList.add(reservState);
     // }
@@ -56,6 +56,7 @@ public class Reservation {
     // reservStateList.clear();
     // }
 
+    
     @CreationTimestamp
     private LocalDate createdAt;
 }

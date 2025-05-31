@@ -6,6 +6,7 @@ import java.util.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.example.pwm.domain.reservation.Reservation;
+import com.example.pwm.domain.schedule.Schedule;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -49,7 +50,11 @@ public class Host {
     private LocalDate createdAt;
 
     @Builder.Default
-    @OneToMany(mappedBy = "host")
+    @OneToMany(mappedBy = "resHost", fetch = FetchType.LAZY)
     private List<Reservation> res = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "scheHost", fetch = FetchType.LAZY)
+    private List<Schedule> sche = new ArrayList<>();
 
 }

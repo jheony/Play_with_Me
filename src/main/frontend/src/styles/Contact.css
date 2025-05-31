@@ -1,0 +1,18 @@
+.contact-container {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.contact-divider {
+  height: 3px;
+  background-color: #94c4e0;
+  margin-bottom: 20px;
+}
+
+.contact-content p {
+  margin: 5px 0;
+  color: #333;
+  font-size: 14px;
+}

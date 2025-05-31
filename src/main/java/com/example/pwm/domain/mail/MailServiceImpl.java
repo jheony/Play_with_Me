@@ -61,13 +61,12 @@ public class MailServiceImpl {
      * String[receiverList.size()]);
      * simpleMailMessage.setTo(changeReceivers);
      */
-    public void reservRequestEmailToHost(ReservDTO res, Long hostId) {
+    public void reservRequestEmailToHost(ReservDTO res, String hEmail) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
 
-            String hEmail = hostService.get(hostId);
             // 메일을 받을 수신자 설정
             mimeMessageHelper.setTo(hEmail);
             // 메일의 제목 설정
@@ -110,13 +109,12 @@ public class MailServiceImpl {
     }
 
     // 수락 메일
-    public void reservAcceptEmailToHost(Long resId) {
+    public void reservAcceptEmailToHost(Long resId, String hEmail) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
             ReservDTO res = reservService.get(resId);
-            String hEmail = res.getHost().getEmail();
             // 메일을 받을 수신자 설정
             mimeMessageHelper.setTo(hEmail);
             // 메일의 제목 설정
@@ -159,14 +157,13 @@ public class MailServiceImpl {
     }
 
     // 거절 메일
-    public void reservCancelEmailToHost(Long resId) {
+    public void reservCancelEmailToHost(Long resId, String hEmail) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
 
             ReservDTO res = reservService.get(resId);
-            String hEmail = res.getHost().getEmail();
             // 메일을 받을 수신자 설정
             mimeMessageHelper.setTo(hEmail);
             // 메일의 제목 설정

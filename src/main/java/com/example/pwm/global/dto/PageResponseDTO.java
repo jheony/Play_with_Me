@@ -7,7 +7,6 @@ import java.util.stream.IntStream;
 import lombok.Builder;
 import lombok.Data;
 
-// 페이지 응답 정보를 담는 클래스
 @Data
 public class PageResponseDTO<E> {
 
