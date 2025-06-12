@@ -1,53 +1,101 @@
-/* Home.css */
-
-.home-container {
-  display: flex;
-  height: 100vh;
-  padding: 40px;
-  box-sizing: border-box;
+/* grid  */
+.main-layout {
+  display: grid;
+  height: 800px;
+  grid-template-columns: 0.8fr 0.8fr;
+  margin-top: 20px;
+  gap: 20px;
+  padding: 70px;
+  align-items: start;
 }
 
-.calendar-wrapper {
-  flex: 1;
+/* 오른쪽 영역 */
+.right-section {
   display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 왼쪽 영역 */
+.left-section {
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
-.right-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.calendar {
+  margin-bottom: 20px;
+  border-radius: 12px;
+  padding: 10px;
+  background-color: #fff;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  animation: fadeInUp 0.6s ease;
 }
 
+/* 시간 선택 영역 */
 .time-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex: 0 0 auto;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  animation: fadeInUp 0.6s ease;
 }
 
+/* 시간 선택 목록 */
+.time-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.time-slot-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.select-time-label {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 폼 영역 */
 .form-container {
-  flex: 1;
-  margin-top: 20px;
-  padding: 24px;
+  max-width: 650px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
   border: 1px solid #fff;
   border-radius: 8px;
   background-color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  animation: fadeInUp 0.6s ease;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
+/* form 내부 스타일 */
 form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 label {
   font-weight: bold;
 }
 
-input, textarea {
+input,
+textarea {
   padding: 10px;
   font-size: 14px;
   border: 1px solid #ccc;
@@ -59,11 +107,12 @@ textarea {
   height: 60px;
 }
 
-.next-button {
-  width: 80px;
+/* 버튼 */
+.res-button {
+  width: 600px;
   padding: 10px;
   background-color: #94c4e0;
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -72,26 +121,8 @@ textarea {
   font-size: 15px;
 }
 
-.next-button:hover {
+.res-button:hover {
   background-color: #70a4c2;
 }
 
-.time-slots {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
-}
 
-.time-slot-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.select-time-label {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-}

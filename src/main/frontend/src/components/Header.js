@@ -34,13 +34,13 @@ function Header() {
         {user ? (
           <>
             <span className="welcome-text">{user.name}님 환영합니다!</span>
-            <button className="mypage-btn" onClick={goToMypage}>마이페이지</button>
-            <button className="sign-out" onClick={handleSignOut}>Sign out</button>
+            <button className="header-btn" onClick={goToMypage}>MyPage</button>
+            <button className="header-btn" onClick={handleSignOut}>Sign out</button>
           </>
         ) : (
           <>
-            <button className="sign-up" onClick={handleSignUpClick}>Sign up</button>
-            <button className="sign-in" onClick={handleSignInClick}>Sign in</button>
+            <button className="header-btn" onClick={handleSignUpClick}>Sign up</button>
+            <button className="header-btn" onClick={handleSignInClick}>Sign in</button>
           </>
         )}
       </div>
