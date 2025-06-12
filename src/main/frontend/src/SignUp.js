@@ -33,7 +33,7 @@ function SignUp() {
 
     // ✅ API로 회원가입 정보 전송
     try {
-      const response = await fetch('/api/signup', {
+      const response = await fetch('/api/host/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,8 +61,9 @@ function SignUp() {
   };
 
   return (
+  <div className="signup-page">
     <div className="signup-container">
-      <h2 className="signup-title">회원가입</h2>
+      <h2 className="signup-title">Sign up</h2>
       <form className="signup-form" onSubmit={handleSubmit}>
         <label>Email</label>
         <input
@@ -96,9 +97,10 @@ function SignUp() {
           <label>이메일 수신에 동의합니다.</label>
         </div>
 
-        <button className="signnext-button" type="submit">회원가입</button>
+        <button className="next-button" type="submit">회원가입</button>
       </form>
     </div>
+  </div>
   );
 }
 

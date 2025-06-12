@@ -19,13 +19,15 @@ public class ReservController {
   private final ReservService reservService;
   private final MailServiceImpl mailService;
 
-  @PostMapping("/api/{hostId}/reserv")
+  @PostMapping("/api/reserv/{hostId}")
   public ResponseEntity<String> reservation(@PathVariable Long hostId, @RequestBody ReservDTO reservDTO) {
     try {
-      reservService.register(reservDTO, hostId);
-      mailService.reservRequestEmailToHost(reservDTO, hostId);
+      reservDTO.setHostId(hostId);
+      Long resId = reservService.addReserv(reservDTO, hostId);
 
-      return ResponseEntity.ok("예약성공");
+      mailService.sendMailAddReserv(resId);
+
+      return ResponseEntity.ok("예약성공, resID: "+resId);
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -37,7 +39,8 @@ public class ReservController {
   public ResponseEntity<String> acceptReserv(@PathVariable Long resId) {
     try {
       reservService.acceptReserv(resId);
-      mailService.reservAcceptEmailToHost(resId);
+      mailService.reservAcceptEmailToReserv(resId);
+
       return ResponseEntity.ok("예약수락");
 
     } catch (Exception e) {
@@ -49,10 +52,10 @@ public class ReservController {
   @DeleteMapping("/api/reserv/{resId}")
   public ResponseEntity<String> cancelReserv(@PathVariable Long resId) {
     try {
-      mailService.reservCancelEmailToHost(resId);   //메일 전송 후 삭제
-      reservService.cancelReserv(resId);  
-      return ResponseEntity.ok("예약거절");
+      mailService.reservCancelEmailToReserv(resId); // 메일 전송 후 삭제
+      reservService.cancelReserv(resId);
 
+      return ResponseEntity.ok("예약거절");
     } catch (Exception e) {
       e.printStackTrace();
       return ResponseEntity.status(400).body("예약 상태 변경(거절) 실패");

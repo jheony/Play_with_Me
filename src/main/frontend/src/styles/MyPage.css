@@ -1,3 +1,11 @@
+.my-layout {
+  display: grid;
+  grid-template-columns: 0.8fr 0.8fr;
+  gap: 20px;
+  padding: 15px;
+  align-items: start;
+}
+
 .date-num {
   font-size: 23px;
   font-weight: bold;
@@ -6,9 +14,87 @@
   margin-top: 20px;
 }
 
-.no-reservation {
+.no-reservation, .no-request {
   color: #888;
   font-style: italic;
-  margin-top: 8px;
+  margin-top: 50px;
   text-align: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-close, .add {
+  color: #fff;
+  background-color: #94c4e0;
+  border: 1px solid #70a4c2;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add {
+  height: 34px;
+}
+
+/* 오른쪽 영역 */
+.mright-section {
+  display: flex;
+  flex-direction: column;
+  animation: fadeInUp 0.6s ease;
+}
+
+/* 왼쪽 영역 */
+.mleft-section {
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.s-button {
+  background-color: #94c4e0;       
+  color: #fff;                     
+  border: 2px solid #fff;                   
+  padding: 10px 20px;               
+  font-size: 15px;
+  border-radius: 8px;             
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.s-button:hover {
+  background-color: #70a4c2;
 }

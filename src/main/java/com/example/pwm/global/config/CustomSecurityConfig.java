@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -14,6 +16,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.example.pwm.security.CustomAccessDeniedHandler;
 import com.example.pwm.security.filter.JWTCheckFilter;
 import com.example.pwm.security.handler.APILoginFailHandler;
 import com.example.pwm.security.handler.APILoginSuccessHandler;
@@ -36,11 +39,11 @@ public class CustomSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll() // 모든 요청 허용
                 )
-        .formLogin(config -> {
-        config.loginPage("/api/signin");
-        config.successHandler(new APILoginSuccessHandler());
-        config.failureHandler(new APILoginFailHandler());
-        });
+                .formLogin(config -> {
+                    config.loginPage("/api/host/signin").defaultSuccessUrl("/");
+                    config.successHandler(new APILoginSuccessHandler());
+                    config.failureHandler(new APILoginFailHandler());
+                });
 
         // .authorizeHttpRequests((auth) -> auth
         // .requestMatchers("/error").permitAll()
@@ -70,6 +73,11 @@ public class CustomSecurityConfig {
         // config.accessDeniedHandler(new CustomAccesssDeniedHandler());
         // });
 
+    // http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class); //JWT체크 
+
+    // http.exceptionHandling(config -> {
+    //   config.accessDeniedHandler(new CustomAccessDeniedHandler());
+    // });
         return http.build();
     }
 
@@ -86,6 +94,12 @@ public class CustomSecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
 
         return source;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .build();
     }
 
     // 비밀번호 암호화

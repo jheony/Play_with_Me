@@ -18,7 +18,7 @@ function SignIn() {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/signin', {
+      const response = await fetch('/api/host/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: JSON.stringify(formData),
@@ -48,8 +48,8 @@ function SignIn() {
   return (
     <div className="login-page">
       <div className="signin-container">
-        <h2 className="form-title">Sign In</h2>
-        <form onSubmit={handleSubmit}>
+        <h2 className="signin-title">Sign In</h2>
+        <form className="signin-form" onSubmit={handleSubmit}>
           <label>이메일</label>
           <input
             type="email"
@@ -69,7 +69,7 @@ function SignIn() {
             required
           />
           <button type="submit" className="next-button">로그인</button>
-          <a href="/signup" className="signtext-link">회원가입</a>
+          <a href="/signup#/signup" className="signtext-link">Sign Up</a>
         </form>
       </div>
     </div>

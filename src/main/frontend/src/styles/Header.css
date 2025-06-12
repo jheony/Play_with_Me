@@ -3,11 +3,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 24px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #fff;
   background-color: #94c4e0;
   font-family: sans-serif;
   font-size: 14px;
-  height: 60px;
+  height: 80px;
 }
 
 .header-left {
@@ -16,10 +16,16 @@
   padding-left: 80px;
 }
 
+.header-right {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .center-section {
   display: flex;
   gap: 16px;
-  color: white;
+  color: #fff;
   margin-left: auto;
   margin-right: 60px;
   font-weight: bold;
@@ -28,7 +34,7 @@
 
 .text-link {
   text-decoration: none;
-  color: white;
+  color: #fff;
   cursor: pointer;
   font-size: 16px;
   margin-left: 20px;
@@ -36,55 +42,44 @@
 
 .maintext-link {
   text-decoration: none;
-  color: white;
+  color: #fff;
   cursor: pointer;
   font-size: 24px;
 }
 
 .text-link:hover {
   text-decoration: underline;
-  color: white;
+  color: #fff;
 }
 
 .header-right {
   display: flex;
   gap: 8px;
+  align-items: center;
 }
 
-.sign-in, .sign-up {
-  padding: 6px 12px;
+/* 헤더에 있는 버튼들 스타일 통일(Sign up, Sign in, MyPage, Sign out) */
+.header-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
   border: 1px solid #94c4e0;
-  background-color: white;
   border-radius: 4px;
+  padding: 6px 12px;
   cursor: pointer;
+  min-width: 80px;
+  height: 30px;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
-/*로그인 후 실행되는 요소들에 대한 CSS (마이페이지, ~~님 환영합니다)*/
-.sign-in {
-  margin-left: 10px;
-}
+/* 로그인 후 실행되는 요소들에 대한 CSS (마이페이지, ~~님 환영합니다) */
 
 .welcome-text {
   font-weight: bold;
-  color: white;
-  margin-right: 30px;
-  margin-top: 7px;
+  color: #fff;
+  margin-right: 10px; 
   font-size: 17px;
-}
-
-.mypage-btn {
-  background-color: white;
-  border: 1px solid #94c4e0;
-  border-radius: 4px;
-  padding: 6px 12px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.sign-out {
-  background-color: white;
-  border: 1px solid #94c4e0;
-  border-radius: 4px;
-  padding: 6px 12px;
-  cursor: pointer;
+  white-space: nowrap; /* 줄바꿈 방지 */
 }

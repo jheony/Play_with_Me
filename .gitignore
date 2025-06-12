@@ -31,6 +31,7 @@ replay_pid*.log
 
 application-sensitive.yml
 application-sensitive.properties
+application.properties
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,java,gradle,intellij,eclipse,netbeans,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,visualstudiocode,java,gradle,intellij,eclipse,netbeans,git

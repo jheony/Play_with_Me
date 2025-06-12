@@ -1,0 +1,102 @@
+.react-calendar {
+  height: 750px;
+  width: 240px;
+  font-size: 13px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* 헤더 상단 (년도, 월, 화살표) */
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9fafb;
+  height: 45px;
+  padding: 0 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.react-calendar__navigation__label {
+  color: #111;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.react-calendar__navigation__arrow {
+  color: #333;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.react-calendar__navigation__arrow:hover {
+  background-color: #e3e3e3;
+}
+
+/* 요일 */
+.react-calendar__month-view__weekdays {
+  background-color: #fff;
+  font-weight: 600;
+  font-size: 12px;
+  text-align: center;
+  color: #666;
+  padding: 8px 0;
+  border-bottom: 1px solid #fff;
+}
+
+.react-calendar__month-view__days {
+  row-gap: 2px;
+}
+
+.react-calendar__month-view__weekdays abbr {
+  text-decoration: none;
+  color: #666;
+}
+
+/* 날짜 셀 */
+.react-calendar__tile {
+  height: 10px;
+  font-size: 13px;
+  padding: 4px;
+  transition: background 0.2s ease;
+  border-radius: 6px;
+}
+
+/* 날짜 셀 세로 줄이기 */
+.react-calendar__tile, .react-calendar__month-view__days__day, 
+.react-calendar__month-view__days__day--weekend, 
+.react-calendar__month-view__days__day--neighboringMonth{
+  height: 120px !important;
+}
+
+.react-calendar__tile:hover {
+  background-color: #ccc;
+}
+
+/* 오늘 날짜 */
+.react-calendar__tile--now {
+  background-color: #94c4e0 !important;
+  color: #fff !important;
+  font-weight: bold;
+}
+
+/* 선택된 날짜 */
+.react-calendar__tile--active {
+  background-color: #66a9cf !important;
+  color: #fff !important;
+  font-weight: bold;
+}
+
+/* 토요일 */
+.react-calendar__month-view__days__day:nth-child(7n+7) {
+  color: #1e90ff;
+}
+
+/* 일요일 */
+.react-calendar__month-view__days__day:nth-child(7n+1) {
+  color: #ff6b6b;
+}

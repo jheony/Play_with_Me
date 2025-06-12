@@ -1,78 +1,60 @@
+.signup-page {
+  display: grid;
+  gap: 20px;
+  padding: 40px;
+  align-items: start;
+  height: 70vh;
+}
+
 .signup-container {
-    max-width: 400px;
-    margin: 40px auto;
-    padding: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    margin-top: 150px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    animation: fadeInUp 0.6s ease;
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin-top: 150px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  animation: fadeInUp 0.6s ease;
   }
   
-  @keyframes fadeInUp {
-    from {
-      transform: translateY(40px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+@keyframes fadeInUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
   }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
-  .signup-title {
-    text-align: center;
-    font-weight: bold;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
+.signup-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  width: 100%;
+}
   
-  .signup-form {
-    display: flex;
-    flex-direction: column;
-  }
+.checkbox-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
   
-  .signup-form label {
-    margin-bottom: 6px;
-    font-weight: bold;
-  }
-  
-  .signup-form input,
-  .signup-form textarea {
-    margin-bottom: 16px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    resize: none;
-  }
-  
-  .checkbox-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-  
-  .checkbox-area label {
-    margin-top: -7px;
-    font-size: 15px;
-  }
+.checkbox-area label {
+  margin-top: -7px;
+  font-size: 15px;
+}
 
-  .signnext-button {
-    padding: 12px;
-    background-color: #94c4e0;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 17px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
+.next-button {
+  width: 400px;
+  font-size: 17px;
+}
   
-  .signnext-button:hover {
-    background-color: #70a4c2;
-  }
+.signnext-button:hover {
+  background-color: #70a4c2;
+}
   
