@@ -7,4 +7,5 @@ public interface ReservService {
 
     ReservDTO get(Long id);
     String getHostEmail(Long resId);
+    String getHostName(Long resId);
 }

@@ -70,55 +70,102 @@ public class HostServiceImpl implements HostService {
     // host 삭제
     @Override
     public void remove(Long id) {
+        Host host = hostRepository.findById(id).orElseThrow();
+
+        host.getRes().clear(); // 예약 리스트 초기화
+        host.getSche().clear(); // 일정 리스트 초기화
+
         hostRepository.deleteById(id);
     }
 
     // 일정 목록 조회
     @Override
     public PageResponseDTO<ScheduleDTO> getScheList(PageRequestDTO pageRequestDTO) {
+
         Pageable pageable = PageRequest.of(
                 pageRequestDTO.getPage() - 1,
                 pageRequestDTO.getSize(),
-                Sort.by("id").ascending());
+                Sort.by("startTime").ascending());
 
-        Page<Schedule> result = scheduleRepository.findAll(pageable);
+        Page<Schedule> result;
+        // 날짜 필터 존재 시 조건 검색
+        if (pageRequestDTO.getHostId() != null && pageRequestDTO.getStartDate() != null
+                && pageRequestDTO.getEndDate() != null) {
+            result = scheduleRepository.findByScheHostIdAndStartTimeBetween(
+                    pageRequestDTO.getHostId(),
+                    pageRequestDTO.getStartDate(),
+                    pageRequestDTO.getEndDate(),
+                    pageable);
+        } else if (pageRequestDTO.getHostId() != null) {
+            result = scheduleRepository.findByScheHostId(
+                    pageRequestDTO.getHostId(),
+                    pageable);
+        } else {
+            // 전체 조회
+            result = scheduleRepository.findAll(pageable);
+        }
 
-        List<ScheduleDTO> dtoList = result.getContent().stream().map(sche -> modelMapper.map(sche, ScheduleDTO.class)).collect(Collectors.toList());
+        List<ScheduleDTO> dtoList = result.getContent().stream()
+                .map(sche -> modelMapper.map(sche, ScheduleDTO.class))
+                .collect(Collectors.toList());
 
-        long totalCnt = result.getTotalElements();
-
-        PageResponseDTO<ScheduleDTO> responseDTO = PageResponseDTO.<ScheduleDTO>withAll()
+        return PageResponseDTO.<ScheduleDTO>withAll()
                 .dtoList(dtoList)
                 .pageRequestDTO(pageRequestDTO)
-                .totalCnt(totalCnt)
+                .totalCnt(result.getTotalElements())
                 .build();
-
-        return responseDTO;
-
     }
 
-    // 예약 목록 조회
     @Override
     public PageResponseDTO<ReservDTO> getReservList(PageRequestDTO pageRequestDTO) {
+
         Pageable pageable = PageRequest.of(
                 pageRequestDTO.getPage() - 1,
                 pageRequestDTO.getSize(),
-                Sort.by("id").ascending());
+                Sort.by("startTime").ascending());
 
-        Page<Reservation> result = reservRepository.findAll(pageable);
+        Page<Reservation> result;
+
+        // id+상태+시작+끝 날짜
+        if (pageRequestDTO.getHostId() != null &&
+                pageRequestDTO.getStartDate() != null &&
+                pageRequestDTO.getEndDate() != null &&
+                pageRequestDTO.getReservState() != null) {
+
+            result = reservRepository.findByResHostIdAndReservStateAndStartTimeBetween(
+                    pageRequestDTO.getHostId(),
+                    pageRequestDTO.getReservState(),
+                    pageRequestDTO.getStartDate(),
+                    pageRequestDTO.getEndDate(),
+                    pageable);
+
+        } else if (pageRequestDTO.getHostId() != null &&
+                pageRequestDTO.getReservState() != null) {
+
+            result = reservRepository.findByResHostIdAndReservState(
+                    pageRequestDTO.getHostId(),
+                    pageRequestDTO.getReservState(),
+                    pageable);
+
+        } else if (pageRequestDTO.getHostId() != null) {
+
+            result = reservRepository.findByResHostId(
+                    pageRequestDTO.getHostId(),
+                    pageable);
+
+        } else {
+            // 전체 조회
+            result = reservRepository.findAll(pageable);
+        }
 
         List<ReservDTO> dtoList = result.getContent().stream()
                 .map(reserv -> modelMapper.map(reserv, ReservDTO.class))
                 .collect(Collectors.toList());
 
-        long totalCnt = result.getTotalElements();
-
-        PageResponseDTO<ReservDTO> responseDTO = PageResponseDTO.<ReservDTO>withAll()
+        return PageResponseDTO.<ReservDTO>withAll()
                 .dtoList(dtoList)
                 .pageRequestDTO(pageRequestDTO)
-                .totalCnt(totalCnt)
+                .totalCnt(result.getTotalElements())
                 .build();
-
-        return responseDTO;
     }
 }

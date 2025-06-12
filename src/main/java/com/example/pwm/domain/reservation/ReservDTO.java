@@ -1,5 +1,7 @@
 package com.example.pwm.domain.reservation;
 
+import java.time.LocalDateTime;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +23,7 @@ public class ReservDTO {
     private String name;
     private String content;
     private String email;
-    private String startTime;
+    private LocalDateTime startTime;
     private String location;
 
     @Schema(hidden = true)

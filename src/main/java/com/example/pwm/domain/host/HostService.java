@@ -16,4 +16,7 @@ public interface HostService {
     PageResponseDTO<ScheduleDTO> getScheList(PageRequestDTO pageRequestDTO); // 일정 목록 페이징
 
     PageResponseDTO<ReservDTO> getReservList(PageRequestDTO pageRequestDTO); // 예약 신청 목록 페이징
+
+    //PageResponseDTO<ReservDTO> getReservListm(PageRequestDTO pageRequestDTO);
+
 }

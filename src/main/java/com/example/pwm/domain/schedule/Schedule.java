@@ -1,6 +1,7 @@
 package com.example.pwm.domain.schedule;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -31,14 +32,19 @@ public class Schedule {
     private String content;
 
     @Column(nullable = false, name = "s_start")
-    private String startTime;
+    private LocalDateTime startTime;
 
     @Column(name = "s_end")
-    private String endTime;
+    private LocalDateTime endTime;
 
     @Column(nullable = false, name = "s_location")
     private String location;
 
     @CreationTimestamp
     private LocalDate createdAt;
+
+    @Override
+    public String toString() {
+        return "Reservation{id=" + id + ", date=" + startTime + "}";
+    }
 }

@@ -17,9 +17,8 @@ public class ScheduleController {
     @PostMapping("/api/schedule/{hostId}")
     public ResponseEntity<String> addSchedule(@PathVariable Long hostId, @RequestBody ScheduleDTO scheduleDTO) {
         try {
-            scheduleService.addSchedule(scheduleDTO, hostId);
-            return ResponseEntity.ok("일정 등록 성공");
-
+            Long scheId = scheduleService.addSchedule(scheduleDTO, hostId);
+            return ResponseEntity.ok("일정 등록 성공, scheId: " + scheId);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(400).body("일정 등록 실패");

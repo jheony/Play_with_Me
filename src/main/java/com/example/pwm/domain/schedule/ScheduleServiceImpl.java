@@ -2,10 +2,10 @@ package com.example.pwm.domain.schedule;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.pwm.domain.host.Host;
 import com.example.pwm.domain.host.HostRepository;
-import com.example.pwm.domain.reservation.Reservation;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,9 +31,14 @@ public class ScheduleServiceImpl implements ScheduleService {
         return saveSche.getId();
     }
 
+    @Transactional
     @Override
     public String removeSchedule(Long scheduleId) {
         Schedule sche = scheduleRepository.findById(scheduleId).orElseThrow();
+
+        Host host = sche.getScheHost();
+        host.getSche().remove(sche);
+
         scheduleRepository.delete(sche);
 
         return "일정이 삭제되었습니다.";

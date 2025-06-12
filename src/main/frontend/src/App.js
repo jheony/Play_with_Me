@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './Home';
@@ -7,6 +7,7 @@ import MyPage from './MyPage';
 import SignIn from './SignIn';
 import './App.css';
 import SignUp from './SignUp';
+import Contact from './components/Contact';
 import { AuthProvider } from './contexts/AuthContext';
 
 
@@ -22,7 +23,8 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
-      </Router>
+        <Contact />
+        </Router>
     </AuthProvider>
   );
 }

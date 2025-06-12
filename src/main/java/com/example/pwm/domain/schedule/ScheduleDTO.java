@@ -1,6 +1,7 @@
 package com.example.pwm.domain.schedule;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.example.pwm.domain.host.Host;
 
@@ -21,7 +22,7 @@ public class ScheduleDTO {
     private Long id;
 
     private String content;
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String location;
 }

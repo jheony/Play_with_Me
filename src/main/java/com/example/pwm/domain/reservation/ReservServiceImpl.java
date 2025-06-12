@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.pwm.domain.host.Host;
 import com.example.pwm.domain.host.HostRepository;
@@ -22,6 +23,8 @@ public class ReservServiceImpl implements ReservService {
     @Override
     public Long addReserv(ReservDTO reservDTO, Long hostId) {
         Reservation reservation = modelMapper.map(reservDTO, Reservation.class);
+
+        reservation.setEndTime(reservation.getStartTime().plusHours(2));
 
         Host host = hostRepository.findById(hostId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 호스트가 존재하지 않습니다. ID: " + hostId));
@@ -45,12 +48,17 @@ public class ReservServiceImpl implements ReservService {
 
     // 예약 거절
     @Override
+    @Transactional
     public String cancelReserv(Long resId) {
         Reservation res = reservRepository.findById(resId).orElseThrow();
+        
+        Host host = res.getResHost();
+        host.getRes().remove(res);
+
         reservRepository.delete(res);
         return "예약이 거절되었습니다.";
     }
-    
+
     @Override
     public ReservDTO get(Long id) {
         Optional<Reservation> result = reservRepository.findById(id);
@@ -66,5 +74,12 @@ public class ReservServiceImpl implements ReservService {
         Host host = res.getResHost();
 
         return host.getEmail();
+    }
+
+    @Override
+    public String getHostName(Long resId) {
+        Reservation res = reservRepository.findById(resId).orElseThrow();
+        Host host = res.getResHost();
+        return host.getName();
     }
 }

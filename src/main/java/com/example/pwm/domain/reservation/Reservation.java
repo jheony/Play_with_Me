@@ -1,6 +1,7 @@
 package com.example.pwm.domain.reservation;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -33,14 +34,14 @@ public class Reservation {
     private String email;
 
     @Column(nullable = false, name = "r_start")
-    private String startTime;
+    private LocalDateTime startTime;
 
     @Column(name = "r_end")
-    private String endTime;
+    private LocalDateTime endTime;
 
     @Column(nullable = false, name = "r_location")
     private String location;
-    
+
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private ReservState reservState = ReservState.PENDING;
@@ -56,7 +57,12 @@ public class Reservation {
     // reservStateList.clear();
     // }
 
-    
     @CreationTimestamp
     private LocalDate createdAt;
+
+    @Override
+    public String toString() {
+        return "Reservation{id=" + id + ", date=" + startTime + "}";
+    }
+
 }
